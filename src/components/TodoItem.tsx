@@ -1,16 +1,51 @@
 import { FC } from 'react';
 import { ITodo } from '../types/data';
 import { styled } from 'styled-components';
+import check from '../icons/check.svg'
 
 const StyledTodoItem = styled.div`
+  padding: 15px; 
   display: flex;
   align-items: center;
   min-height: 50px;
   border-bottom: 1px solid lightgrey;
   font-size: 24px;
+`;
 
-  input:checked + span {
+const StyledCheckbox = styled.input`
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+
+  & + label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+  }
+
+  &:checked + label {
     text-decoration: line-through;
+    color: grey;
+  }
+
+  & + label::before {
+    content: '';
+    display: inline-block;
+    margin-right: 0.5em;
+    width: 1.1em;
+    height: 1.1em;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 1px solid lightgrey;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  &:checked + label::before {
+    border: 1px solid green;
+    background-image: url('${check}');
+    background-size: 80%;
   }
 `;
 
@@ -23,14 +58,15 @@ const TodoItem: FC<ITodoItem> = (props) => {
 
   return (
     <StyledTodoItem>
-      <input
+      <StyledCheckbox
         type="checkbox"
+        id={task}
         checked={isCompleted}
         onChange={() => toggleTodoStatus(id)}
       />
-      <span>{task}</span>
+      <label htmlFor={task}>{task}</label>
     </StyledTodoItem>
-  )
+  );
 };
 
 export default TodoItem;

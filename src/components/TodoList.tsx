@@ -26,7 +26,7 @@ const TodoList: FC<ITodoListProps> = (props) => {
         />
       )}
     </StyledList>
-  )
+  );
 };
 
 export default TodoList;

@@ -6,9 +6,12 @@ const StyledForm = styled.form`
   width: 100%;
 
   .input {
-    padding: 5px 15px;
+    padding: 25px 15px;
     width: 100%;
     font-size: 24px;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid lightgrey;
   }
 `;
 
@@ -44,6 +47,7 @@ const TodoForm: FC<TodoFormProps> = (props) => {
         className='input'
         type="text"
         placeholder='What needs to be done?'
+        autoFocus
         value={value}
         onChange={handleChange}
       />
