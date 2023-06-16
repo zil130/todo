@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 import Header from './Header';
 import { ITodo } from '../types/data';
 import TodoForm from './TodoForm';
+import TodoList from './TodoList';
 
 const StyledApp = styled.div`
   display: flex;
@@ -15,14 +16,25 @@ const StyledApp = styled.div`
 const App: FC = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
 
-  const addTodo = (newTodo: ITodo) => {
+  const addTodo = (newTodo: ITodo): void => {
     setTodos([...todos, newTodo]);
+  };
+
+  const toggleTodoStatus = (id: number): void => {
+    setTodos(todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, isCompleted: !todo.isCompleted };
+      }
+
+      return todo;
+    }));
   };
 
   return (
     <StyledApp>
       <Header />
       <TodoForm onSubmit={addTodo} />
+      <TodoList items={todos} toggleTodoStatus={toggleTodoStatus} />
     </StyledApp>
   );
 };

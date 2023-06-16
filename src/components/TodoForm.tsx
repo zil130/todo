@@ -19,8 +19,12 @@ interface TodoFormProps {
 const TodoForm: FC<TodoFormProps> = (props) => {
   const [value, setValue] = useState('');
 
-  const onSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    setValue(event.target.value)
+  };
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
 
     if (value) {
       const newTodo: ITodo = {
@@ -35,13 +39,13 @@ const TodoForm: FC<TodoFormProps> = (props) => {
   };
 
   return (
-    <StyledForm onSubmit={onSubmit}>
+    <StyledForm onSubmit={handleSubmit}>
       <input
         className='input'
         type="text"
         placeholder='What needs to be done?'
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={handleChange}
       />
     </StyledForm>
   );
