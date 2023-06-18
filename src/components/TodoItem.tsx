@@ -60,11 +60,11 @@ const TodoItem: FC<ITodoItem> = (props) => {
     <StyledTodoItem>
       <StyledCheckbox
         type="checkbox"
-        id={task}
+        id={id.toString()}
         checked={isCompleted}
         onChange={() => toggleTodoStatus(id)}
       />
-      <label htmlFor={task}>{task}</label>
+      <label htmlFor={id.toString()}>{task}</label>
     </StyledTodoItem>
   );
 };
