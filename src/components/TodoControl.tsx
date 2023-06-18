@@ -10,6 +10,12 @@ const StyledTodoControl = styled.div`
 
   .active {
     border: 1px solid green;
+    color: green;
+    cursor: default;
+  }
+
+  .active:hover {
+    text-decoration: none;
   }
 `;
 
