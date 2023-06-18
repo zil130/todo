@@ -1,4 +1,4 @@
-import { FC, useState, useMemo } from 'react';
+import { FC, useState, useMemo, useEffect } from 'react';
 import { styled } from 'styled-components';
 import Header from './Header';
 import { ITodo } from '../types/data';
@@ -16,8 +16,13 @@ const StyledApp = styled.div`
 `;
 
 const App: FC = () => {
-  const [todos, setTodos] = useState<ITodo[]>([]);
+  const initialTodos: string | null = localStorage.getItem('todos');
+  const [todos, setTodos] = useState<ITodo[]>(initialTodos ? JSON.parse(initialTodos) : []);
   const [showedTodos, setShowedTodos] = useState<string>('All');
+
+  useEffect(()=>{
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos]);
 
   const activeTodos: number = useMemo(() => {
     const result = todos.filter((todo) => !todo.isCompleted);
