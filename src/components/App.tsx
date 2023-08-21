@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 import Header from './Header';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
+import TodoControl from './TodoControl';
 
 const StyledApp = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ const App: FC = () => {
       <Header />
       <TodoForm />
       <TodoList />
+      <TodoControl />
     </StyledApp>
   );
 };

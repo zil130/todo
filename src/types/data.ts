@@ -3,3 +3,9 @@ export interface ITodo {
   title: string;
   completed: boolean;
 }
+
+export enum DisplayOption { 
+  All = 'All',
+  Active = 'Active',
+  Completed = 'Completed',
+};
