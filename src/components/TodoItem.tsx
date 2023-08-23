@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { ITodo } from '../types/data';
 import { styled } from 'styled-components';
+import { useAppDispatch } from '../hooks';
+import { toggleTodoComplete } from '../store/todoSlice';
 import check from '../icons/check.svg'
 
 const StyledTodoItem = styled.div`
@@ -49,22 +51,19 @@ const StyledCheckbox = styled.input`
   }
 `;
 
-interface ITodoItem extends ITodo {
-  toggleTodoStatus: (id: number) => void;
-}
-
-const TodoItem: FC<ITodoItem> = (props) => {
-  const { id, task, isCompleted, toggleTodoStatus } = props;
+const TodoItem: FC<ITodo> = (props) => {
+  const { id, title, completed } = props;
+  const dispatch = useAppDispatch();
 
   return (
     <StyledTodoItem>
       <StyledCheckbox
         type="checkbox"
         id={id.toString()}
-        checked={isCompleted}
-        onChange={() => toggleTodoStatus(id)}
+        checked={completed}
+        onChange={() => dispatch(toggleTodoComplete(id))}
       />
-      <label htmlFor={id.toString()}>{task}</label>
+      <label htmlFor={id.toString()}>{title}</label>
     </StyledTodoItem>
   );
 };

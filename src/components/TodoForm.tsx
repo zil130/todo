@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { styled } from 'styled-components';
-import { ITodo } from '../types/data';
+import { useAppDispatch } from '../hooks';
+import { addTodo } from '../store/todoSlice';
 
 const StyledForm = styled.form`
   width: 100%;
@@ -15,11 +16,8 @@ const StyledForm = styled.form`
   }
 `;
 
-interface TodoFormProps {
-  onSubmit: (todo: ITodo) => void;
-}
-
-const TodoForm: FC<TodoFormProps> = (props) => {
+const TodoForm: FC = () => {
+  const dispatch = useAppDispatch();
   const [value, setValue] = useState('');
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -30,13 +28,7 @@ const TodoForm: FC<TodoFormProps> = (props) => {
     event.preventDefault();
 
     if (value) {
-      const newTodo: ITodo = {
-        id: Date.now(),
-        task: value,
-        isCompleted: false,
-      }
-
-      props.onSubmit(newTodo);
+      dispatch(addTodo(value));
       setValue('');
     }
   };

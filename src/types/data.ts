@@ -1,5 +1,11 @@
 export interface ITodo {
   id: number;
-  task: string;
-  isCompleted: boolean;
+  title: string;
+  completed: boolean;
 }
+
+export enum DisplayOption { 
+  All = 'All',
+  Active = 'Active',
+  Completed = 'Completed',
+};

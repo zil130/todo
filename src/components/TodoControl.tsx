@@ -1,5 +1,8 @@
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { styled } from "styled-components";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { clearCompleted, changeDisplayOption } from "../store/todoSlice";
+import { DisplayOption } from "../types/data";
 
 const StyledTodoControl = styled.div`
   display: flex;
@@ -32,35 +35,32 @@ const StyledButton = styled.button`
   }
 `;
 
-type TodoControlProps = {
-  activeTodos: number;
-  clearCompleted: () => void;
-  sortTodos: (id: string) => void;
-}
+const TodoControl: FC = () => {
+  const todos = useAppSelector((state) => state.todos.todos);
+  const activeTodos: number = useMemo(() => {
+    const result = todos.filter((todo) => !todo.completed);
+    return result.length;
+  }, [todos]);
+  const dispatch = useAppDispatch();
 
-const TodoControl: FC<TodoControlProps> = ({activeTodos, clearCompleted, sortTodos}) => {
   const [buttons, setButtons] = useState([
-    { id: 'All', active: true },
-    { id: 'Active', active: false },
-    { id: 'Completed', active: false },
+    { id: DisplayOption.All, active: true },
+    { id: DisplayOption.Active, active: false },
+    { id: DisplayOption.Completed, active: false },
   ]);
 
-  const highlightBtn = (id: string) => {
+  const handleClick = (id: DisplayOption) => {
     setButtons(buttons.map((btn) => {
       return {...btn, active: btn.id === id};
     }));
-  };
-
-  const handleClick = (id: string) => {
-    highlightBtn(id);
-    sortTodos(id);
+    dispatch(changeDisplayOption(id));
   }
 
   return (
     <StyledTodoControl>
       <div>{activeTodos} items left</div>
       <div>
-        {buttons.map((btn) => 
+        {buttons.map((btn) =>
           <StyledButton
             key={btn.id}
             className={btn.active ? 'active' : ''}
@@ -71,7 +71,7 @@ const TodoControl: FC<TodoControlProps> = ({activeTodos, clearCompleted, sortTod
         )}
       </div>
       <div>
-        <StyledButton onClick={clearCompleted}>Clear completed</StyledButton>
+        <StyledButton onClick={() => dispatch(clearCompleted())}>Clear completed</StyledButton>
       </div>
     </StyledTodoControl>
   );
