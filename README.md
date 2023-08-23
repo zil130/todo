@@ -1,6 +1,6 @@
 # Todo App
 
-TypeScript, React, React Hooks, Styled Components
+TypeScript, React, Redux Toolkit, Styled Components
 
 ## Deploy
 
