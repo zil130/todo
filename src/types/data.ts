@@ -4,8 +4,8 @@ export interface ITodo {
   completed: boolean;
 }
 
-export enum DisplayOption { 
+export enum DisplayOption {
   All = 'All',
   Active = 'Active',
   Completed = 'Completed',
-};
+}

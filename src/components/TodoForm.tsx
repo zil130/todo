@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { useAppDispatch } from '../hooks';
 import { addTodo } from '../store/todoSlice';
@@ -16,12 +16,12 @@ const StyledForm = styled.form`
   }
 `;
 
-const TodoForm: FC = () => {
+function TodoForm() {
   const dispatch = useAppDispatch();
   const [value, setValue] = useState('');
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    setValue(event.target.value)
+    setValue(event.target.value);
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
@@ -36,15 +36,14 @@ const TodoForm: FC = () => {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <input
-        className='input'
+        className="input"
         type="text"
-        placeholder='What needs to be done?'
-        autoFocus
+        placeholder="What needs to be done?"
         value={value}
         onChange={handleChange}
       />
     </StyledForm>
   );
-};
+}
 
 export default TodoForm;

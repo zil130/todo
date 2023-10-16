@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React from 'react';
 import { styled } from 'styled-components';
 
 const StyledTitle = styled.h1`
@@ -8,10 +8,8 @@ const StyledTitle = styled.h1`
   text-align: center;
 `;
 
-const Header: FC = () => {
-  return (
-    <StyledTitle>todos</StyledTitle>
-  )
-};
+function Header() {
+  return <StyledTitle>todos</StyledTitle>;
+}
 
 export default Header;

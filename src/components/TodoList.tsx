@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { styled } from 'styled-components';
 import TodoItem from './TodoItem';
 import { useAppSelector } from '../hooks';
@@ -14,7 +14,7 @@ const StyledNoTodos = styled.div`
   font-size: 24px;
 `;
 
-const TodoList: FC = () => {
+function TodoList() {
   const todos = useAppSelector((state) => state.todos.todos);
   const displayOption = useAppSelector((state) => state.todos.displayOption);
 
@@ -34,13 +34,22 @@ const TodoList: FC = () => {
     <StyledList>
       {
         filteredTodos.length
-          ? filteredTodos.map((todo) => <TodoItem key={todo.id} {...todo} />)
-          : <StyledNoTodos>
+          ? filteredTodos.map((todo) => (
+            <TodoItem
+              key={todo.id}
+              id={todo.id}
+              title={todo.title}
+              completed={todo.completed}
+            />
+          ))
+          : (
+            <StyledNoTodos>
               {`There Are No${displayOption === 'All' ? ' ' : ` ${displayOption} `}Todos`}
             </StyledNoTodos>
+          )
       }
     </StyledList>
   );
-};
+}
 
 export default TodoList;

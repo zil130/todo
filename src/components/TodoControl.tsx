@@ -1,8 +1,8 @@
-import { FC, useMemo, useState } from "react";
-import { styled } from "styled-components";
-import { useAppDispatch, useAppSelector } from "../hooks";
-import { clearCompleted, changeDisplayOption } from "../store/todoSlice";
-import { DisplayOption } from "../types/data";
+import React, { useMemo, useState } from 'react';
+import { styled } from 'styled-components';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { clearCompleted, changeDisplayOption } from '../store/todoSlice';
+import { DisplayOption } from '../types/data';
 
 const StyledTodoControl = styled.div`
   display: flex;
@@ -35,7 +35,7 @@ const StyledButton = styled.button`
   }
 `;
 
-const TodoControl: FC = () => {
+function TodoControl() {
   const todos = useAppSelector((state) => state.todos.todos);
   const activeTodos: number = useMemo(() => {
     const result = todos.filter((todo) => !todo.completed);
@@ -50,17 +50,19 @@ const TodoControl: FC = () => {
   ]);
 
   const handleClick = (id: DisplayOption) => {
-    setButtons(buttons.map((btn) => {
-      return {...btn, active: btn.id === id};
-    }));
+    setButtons(buttons.map((btn) => ({ ...btn, active: btn.id === id })));
     dispatch(changeDisplayOption(id));
-  }
+  };
 
   return (
     <StyledTodoControl>
-      <div>{activeTodos} items left</div>
       <div>
-        {buttons.map((btn) =>
+        {activeTodos}
+        {' '}
+        items left
+      </div>
+      <div>
+        {buttons.map((btn) => (
           <StyledButton
             key={btn.id}
             className={btn.active ? 'active' : ''}
@@ -68,13 +70,13 @@ const TodoControl: FC = () => {
           >
             {btn.id}
           </StyledButton>
-        )}
+        ))}
       </div>
       <div>
         <StyledButton onClick={() => dispatch(clearCompleted())}>Clear completed</StyledButton>
       </div>
     </StyledTodoControl>
   );
-};
+}
 
 export default TodoControl;

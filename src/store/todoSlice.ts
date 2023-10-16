@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ITodo, DisplayOption } from "../types/data";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ITodo, DisplayOption } from '../types/data';
 
 type TodosState = {
   todos: ITodo[];
@@ -9,7 +9,7 @@ type TodosState = {
 const initialState: TodosState = {
   todos: [],
   displayOption: DisplayOption.All,
-}
+};
 
 const todoSlice = createSlice({
   name: 'todos',
@@ -21,7 +21,7 @@ const todoSlice = createSlice({
         id: Date.now(),
         title: action.payload,
         completed: false,
-      })
+      });
     },
 
     toggleTodoComplete(state, action: PayloadAction<number>) {
@@ -38,10 +38,12 @@ const todoSlice = createSlice({
 
     changeDisplayOption(state, action: PayloadAction<DisplayOption>) {
       state.displayOption = action.payload;
-    }
+    },
   },
-})
+});
 
-export const { addTodo, toggleTodoComplete, clearCompleted, changeDisplayOption } = todoSlice.actions;
+export const {
+  addTodo, toggleTodoComplete, clearCompleted, changeDisplayOption,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;
